@@ -95,7 +95,6 @@
             height: 320px;
             object-fit: cover;
             object-position: top;
-            border-radius: 1.5rem;
         }
     </style>
 </head>
@@ -310,17 +309,23 @@
         </div>
 
         <div id="team-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal mb-8">
-            <div class="stagger-item-team opacity-0 transform translate-y-4 bg-white rounded-3xl p-4 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] group">
-                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=600" alt="Dr. Shubham Sharma" class="doctor-img mb-4">
+            
+            <div class="stagger-item-team opacity-0 transform translate-y-4 bg-white rounded-3xl p-4 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] group hover:-translate-y-2 transition-transform duration-300 cursor-pointer">
+                <div class="rounded-2xl overflow-hidden mb-4 bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=600" alt="Dr. Shubham Sharma" class="doctor-img group-hover:scale-105 transition-transform duration-700">
+                </div>
                 <h3 class="text-navy-900 font-semibold mb-1">Dr. Shubham Sharma</h3>
-                <p class="text-gray-500 text-sm">Orthodontist</p>
+                <p class="text-gray-500 text-sm pb-2">Orthodontist</p>
             </div>
 
-            <div class="stagger-item-team opacity-0 transform translate-y-4 bg-white rounded-3xl p-4 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] group">
-                <img src="https://i.ibb.co/1tZJcWx2/Untitled38-20260321165556.jpg" alt="Dr. Abhishek Khanna" class="doctor-img mb-4">
+            <div class="stagger-item-team opacity-0 transform translate-y-4 bg-white rounded-3xl p-4 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] group hover:-translate-y-2 transition-transform duration-300 cursor-pointer">
+                <div class="rounded-2xl overflow-hidden mb-4 bg-gray-100">
+                    <img src="https://i.ibb.co/1tZJcWx2/Untitled38-20260321165556.jpg" alt="Dr. Abhishek Khanna" class="doctor-img group-hover:scale-105 transition-transform duration-700">
+                </div>
                 <h3 class="text-navy-900 font-semibold mb-1">Dr. Abhishek Khanna</h3>
-                <p class="text-gray-500 text-sm">Oral Surgeon</p>
+                <p class="text-gray-500 text-sm pb-2">Oral Surgeon</p>
             </div>
+            
         </div>
 
         <div class="text-center pt-10 reveal">
@@ -352,33 +357,55 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Scroll Reveal
+            
+            // 1. Scroll Reveal
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
                     }
                 });
-            }, { threshold: 0.1 });
+            }, { threshold: 0.15 });
 
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            // Team Stagger
+            // 2. Services List Stagger (THIS IS THE CODE I ACCIDENTALLY DELETED)
+            const servicesList = document.getElementById('services-list');
+            const staggerItems = document.querySelectorAll('.stagger-item');
+            if (servicesList) {
+                const listObserver = new IntersectionObserver((entries) => {
+                    if(entries[0].isIntersecting) {
+                        staggerItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.remove('opacity-0', 'translate-y-4');
+                                item.classList.add('opacity-100', 'translate-y-0');
+                            }, index * 100);
+                        });
+                        listObserver.unobserve(servicesList);
+                    }
+                }, { threshold: 0.2 });
+                listObserver.observe(servicesList);
+            }
+
+            // 3. Team Stagger
             const teamGrid = document.getElementById('team-grid');
             const teamStaggerItems = document.querySelectorAll('.stagger-item-team');
-            const teamObserver = new IntersectionObserver((entries) => {
-                if(entries[0].isIntersecting) {
-                    teamStaggerItems.forEach((item, index) => {
-                        setTimeout(() => {
-                            item.classList.remove('opacity-0', 'translate-y-4');
-                            item.classList.add('opacity-100', 'translate-y-0');
-                        }, index * 150);
-                    });
-                }
-            }, { threshold: 0.2 });
-            teamObserver.observe(teamGrid);
+            if (teamGrid) {
+                const teamObserver = new IntersectionObserver((entries) => {
+                    if(entries[0].isIntersecting) {
+                        teamStaggerItems.forEach((item, index) => {
+                            setTimeout(() => {
+                                item.classList.remove('opacity-0', 'translate-y-4');
+                                item.classList.add('opacity-100', 'translate-y-0');
+                            }, index * 150);
+                        });
+                        teamObserver.unobserve(teamGrid);
+                    }
+                }, { threshold: 0.2 });
+                teamObserver.observe(teamGrid);
+            }
 
-            // Slider Logic
+            // 4. Slider Logic
             const track = document.getElementById('testimonial-track');
             const originalSlides = Array.from(document.querySelectorAll('.original-slide'));
             const dots = document.querySelectorAll('#slider-dots button');
@@ -467,3 +494,4 @@
     </script>
 </body>
 </html>
+
