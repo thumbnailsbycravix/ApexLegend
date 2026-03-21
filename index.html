@@ -274,28 +274,60 @@
 
         <div class="reveal relative overflow-hidden -mx-4 px-4 pb-4">
             <div class="slider-track grab" id="testimonial-track">
+                
                 <div class="slider-item original-slide">
-                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full border border-gray-50 pointer-events-none">
-                        <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
-                        <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">The staff made me feel so comfortable. Pain-free treatment and a brighter smile!</p>
-                        <h4 class="text-navy-900 font-semibold text-sm">Anjali Sharma</h4>
+                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
+                        <div>
+                            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
+                            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
+                                The staff made me feel so comfortable and cared for. Pain-free treatment, friendly service, and a brighter smile—couldn't ask for better care!
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Anjali Sharma">
+                            <div>
+                                <h4 class="text-navy-900 font-semibold text-sm">Anjali Sharma</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div class="slider-item original-slide">
-                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full border border-gray-50 pointer-events-none">
-                        <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
-                        <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">I've always dreaded the dentist, but ApexCare changed that completely.</p>
-                        <h4 class="text-navy-900 font-semibold text-sm">Rahul Desai</h4>
+                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
+                        <div>
+                            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
+                            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
+                                I've always dreaded visiting the dentist, but ApexCare changed that completely. The procedure was incredibly smooth and the recovery was fast.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Rahul Desai">
+                            <div>
+                                <h4 class="text-navy-900 font-semibold text-sm">Rahul Desai</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div class="slider-item original-slide">
-                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full border border-gray-50 pointer-events-none">
-                        <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
-                        <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">State-of-the-art clinic with a very warm environment. Highly recommended!</p>
-                        <h4 class="text-navy-900 font-semibold text-sm">Priya Patel</h4>
+                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
+                        <div>
+                            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
+                            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
+                                State-of-the-art clinic with a very warm environment. The doctors explained every step of the process patiently. Highly recommended!
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Priya Patel">
+                            <div>
+                                <h4 class="text-navy-900 font-semibold text-sm">Priya Patel</h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
+            
             <div class="flex justify-center items-center gap-2 mt-6" id="slider-dots">
                 <button class="w-2.5 h-2.5 rounded-full bg-navy-900 transition-colors duration-300"></button>
                 <button class="w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300"></button>
@@ -369,7 +401,7 @@
 
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            // 2. Services List Stagger (THIS IS THE CODE I ACCIDENTALLY DELETED)
+            // 2. Services List Stagger 
             const servicesList = document.getElementById('services-list');
             const staggerItems = document.querySelectorAll('.stagger-item');
             if (servicesList) {
@@ -405,7 +437,7 @@
                 teamObserver.observe(teamGrid);
             }
 
-            // 4. Slider Logic
+            // 4. Slider Logic (STRICT MATH FIX)
             const track = document.getElementById('testimonial-track');
             const originalSlides = Array.from(document.querySelectorAll('.original-slide'));
             const dots = document.querySelectorAll('#slider-dots button');
@@ -418,13 +450,23 @@
             const allSlides = document.querySelectorAll('.slider-item');
             let currentIndex = 1;
             let isDragging = false;
+            let isScrolling = false; 
+            
             let startPosX = 0;
+            let startPosY = 0;
             let currentTranslate = 0;
             let prevTranslate = 0;
             let animationID;
             let autoPlayInterval;
 
+            const getValidIndex = (index) => {
+                if (index < 0) return 0;
+                if (index > allSlides.length - 1) return allSlides.length - 1;
+                return index;
+            };
+
             const updatePosition = (animate = true) => {
+                currentIndex = getValidIndex(currentIndex);
                 track.style.transition = animate ? 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
                 currentTranslate = currentIndex * -track.offsetWidth;
                 track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`; 
@@ -448,29 +490,77 @@
                 autoPlayInterval = setInterval(() => { if(!document.hidden){ currentIndex++; updatePosition(true); } }, 3000);
             };
 
-            const touchStart = (e) => {
+            document.addEventListener("visibilitychange", () => {
+                if (document.hidden) {
+                    clearInterval(autoPlayInterval);
+                } else {
+                    startAutoPlay();
+                }
+            });
+
+            const touchStart = (event) => {
                 clearInterval(autoPlayInterval);
+                
+                // Invisible teleport
+                if (currentIndex === 0) {
+                    currentIndex = originalSlides.length;
+                    updatePosition(false);
+                } else if (currentIndex === allSlides.length - 1) {
+                    currentIndex = 1;
+                    updatePosition(false);
+                }
+
                 isDragging = true;
-                startPosX = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-                const matrix = new WebKitCSSMatrix(window.getComputedStyle(track).transform);
-                currentTranslate = matrix.m41;
+                isScrolling = false; 
+                
+                startPosX = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+                startPosY = event.type.includes('mouse') ? event.pageY : event.touches[0].clientY;
+                
+                // STRICT MATH: Eliminates white space bug instantly by locking to exact coordinate
+                currentTranslate = currentIndex * -track.offsetWidth; 
                 prevTranslate = currentTranslate;
-                track.style.transition = 'none';
+                
+                track.style.transition = 'none'; 
+                track.classList.add('grabbing');
                 animationID = requestAnimationFrame(animation);
             };
 
-            const touchMove = (e) => {
+            const touchMove = (event) => {
                 if (!isDragging) return;
-                const x = e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
-                currentTranslate = prevTranslate + (x - startPosX);
+                
+                const currentPosX = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+                const currentPosY = event.type.includes('mouse') ? event.pageY : event.touches[0].clientY;
+                
+                const diffX = currentPosX - startPosX;
+                const diffY = currentPosY - startPosY;
+
+                if (!isScrolling) {
+                    if (Math.abs(diffY) > Math.abs(diffX)) {
+                        isScrolling = true;
+                        isDragging = false;
+                        track.classList.remove('grabbing');
+                        cancelAnimationFrame(animationID);
+                        return;
+                    }
+                }
+
+                if (!isScrolling) {
+                    currentTranslate = prevTranslate + diffX;
+                }
             };
 
             const touchEnd = () => {
+                if (!isDragging) return;
+                
                 isDragging = false;
                 cancelAnimationFrame(animationID);
+                track.classList.remove('grabbing');
+
                 const movedBy = currentTranslate - prevTranslate;
-                if (movedBy < -50) currentIndex++;
-                else if (movedBy > 50) currentIndex--;
+
+                if (movedBy < -30) currentIndex++;
+                else if (movedBy > 30) currentIndex--;
+
                 updatePosition(true);
                 startAutoPlay();
             };
@@ -480,18 +570,31 @@
                 if (isDragging) requestAnimationFrame(animation);
             };
 
-            track.addEventListener('touchstart', touchStart);
-            track.addEventListener('touchmove', touchMove);
+            track.addEventListener('touchstart', touchStart, { passive: true });
+            track.addEventListener('touchmove', touchMove, { passive: true });
             track.addEventListener('touchend', touchEnd);
+            
             track.addEventListener('mousedown', touchStart);
             track.addEventListener('mousemove', touchMove);
             track.addEventListener('mouseup', touchEnd);
-            track.addEventListener('mouseleave', touchEnd);
+            track.addEventListener('mouseleave', () => {
+                if(isDragging) touchEnd();
+                startAutoPlay();
+            });
 
             new ResizeObserver(() => updatePosition(false)).observe(track);
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    clearInterval(autoPlayInterval);
+                    currentIndex = index + 1; 
+                    updatePosition(true);
+                    startAutoPlay();
+                });
+            });
+
             startAutoPlay();
         });
     </script>
 </body>
 </html>
-
