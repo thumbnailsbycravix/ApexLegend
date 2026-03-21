@@ -77,15 +77,19 @@
         .slider-track {
             display: flex;
             will-change: transform;
-            /* Prevents text selection while dragging */
             user-select: none; 
             -webkit-user-select: none;
+            /* CRITICAL FIX: Tells the browser to ignore horizontal gestures and only handle vertical scrolls natively */
+            touch-action: pan-y; 
         }
         .slider-item {
             flex: 0 0 100%;
             width: 100%;
-            padding: 0 10px; /* Spacing between cards */
+            padding: 0 10px;
             box-sizing: border-box;
+        }
+        .slider-item img {
+            pointer-events: none; /* Prevents ghost dragging on images */
         }
         .grabbing { cursor: grabbing !important; }
         .grab { cursor: grab; }
@@ -268,7 +272,7 @@
         <div class="reveal relative overflow-hidden -mx-4 px-4 pb-4" id="slider-wrapper">
             <div class="slider-track grab" id="testimonial-track">
                 
-                <div class="slider-item">
+                <div class="slider-item original-slide">
                     <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
                         <div>
                             <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
@@ -285,7 +289,7 @@
                     </div>
                 </div>
 
-                <div class="slider-item">
+                <div class="slider-item original-slide">
                     <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
                         <div>
                             <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
@@ -302,7 +306,7 @@
                     </div>
                 </div>
 
-                <div class="slider-item">
+                <div class="slider-item original-slide">
                     <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
                         <div>
                             <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
@@ -322,9 +326,9 @@
             </div>
             
             <div class="flex justify-center items-center gap-2 mt-6" id="slider-dots">
-                <button class="w-2.5 h-2.5 rounded-full bg-navy-900 transition-colors duration-300" data-index="0"></button>
-                <button class="w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300" data-index="1"></button>
-                <button class="w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300" data-index="2"></button>
+                <button class="w-2.5 h-2.5 rounded-full bg-navy-900 transition-colors duration-300"></button>
+                <button class="w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300"></button>
+                <button class="w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300"></button>
             </div>
         </div>
 
@@ -400,101 +404,133 @@
 
             if(servicesList) listObserver.observe(servicesList);
 
-            // 3. Ultra-Smooth Touch Slider Logic
+            // 3. UPGRADED INFINITE AUTOPLAY SLIDER
             const track = document.getElementById('testimonial-track');
+            const originalSlides = Array.from(document.querySelectorAll('.original-slide'));
             const dots = document.querySelectorAll('#slider-dots button');
             
+            // Clone first and last slides for the infinite loop illusion
+            const firstClone = originalSlides[0].cloneNode(true);
+            const lastClone = originalSlides[originalSlides.length - 1].cloneNode(true);
+            
+            track.appendChild(firstClone);
+            track.insertBefore(lastClone, originalSlides[0]);
+            
+            const allSlides = document.querySelectorAll('.slider-item');
+            
+            let currentIndex = 1; // Start on the first actual slide (index 1)
             let isDragging = false;
             let startPos = 0;
             let currentTranslate = 0;
             let prevTranslate = 0;
             let animationID;
-            let currentIndex = 0;
+            let autoPlayInterval;
 
-            const updateDots = () => {
-                dots.forEach((dot, index) => {
-                    dot.classList.remove('bg-navy-900');
-                    dot.classList.add('bg-gray-200');
-                    if(index === currentIndex) {
-                        dot.classList.add('bg-navy-900');
-                        dot.classList.remove('bg-gray-200');
-                    }
-                });
-            }
-
-            const getPositionX = (event) => {
-                return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
-            }
-
-            const animation = () => {
-                track.style.transform = `translateX(${currentTranslate}px)`;
-                if(isDragging) requestAnimationFrame(animation);
-            }
-
-            const setPositionByIndex = () => {
+            const updatePosition = (animate = true) => {
+                track.style.transition = animate ? 'transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
                 currentTranslate = currentIndex * -track.offsetWidth;
                 prevTranslate = currentTranslate;
-                track.style.transition = 'transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)';
                 track.style.transform = `translateX(${currentTranslate}px)`;
-                updateDots();
-            }
+                
+                // Update Dots Logic (accounting for clones)
+                let activeDotIndex = currentIndex - 1;
+                if (currentIndex === 0) activeDotIndex = originalSlides.length - 1;
+                if (currentIndex === allSlides.length - 1) activeDotIndex = 0;
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('bg-navy-900', index === activeDotIndex);
+                    dot.classList.toggle('bg-gray-200', index !== activeDotIndex);
+                });
+            };
 
-            const touchStart = (index) => {
-                return function(event) {
-                    isDragging = true;
-                    startPos = getPositionX(event);
-                    track.style.transition = 'none'; // Remove CSS transition while dragging for zero lag
-                    animationID = requestAnimationFrame(animation);
-                    track.classList.add('grabbing');
+            // Handle the seamless jump when reaching a clone
+            track.addEventListener('transitionend', () => {
+                if (currentIndex === 0) {
+                    currentIndex = originalSlides.length;
+                    updatePosition(false);
+                } else if (currentIndex === allSlides.length - 1) {
+                    currentIndex = 1;
+                    updatePosition(false);
                 }
-            }
+            });
+
+            // AutoPlay Setup
+            const startAutoPlay = () => {
+                stopAutoPlay(); // Prevent duplicates
+                autoPlayInterval = setInterval(() => {
+                    currentIndex++;
+                    updatePosition();
+                }, 4000); // Swipes every 4 seconds
+            };
+            const stopAutoPlay = () => clearInterval(autoPlayInterval);
+
+            // Drag Events
+            const touchStart = (event) => {
+                stopAutoPlay();
+                isDragging = true;
+                startPos = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+                track.style.transition = 'none'; 
+                track.classList.add('grabbing');
+                animationID = requestAnimationFrame(animation);
+            };
 
             const touchMove = (event) => {
-                if (isDragging) {
-                    const currentPosition = getPositionX(event);
-                    // Add friction if dragging past edges
-                    let diff = currentPosition - startPos;
-                    if(currentIndex === 0 && diff > 0) diff *= 0.3;
-                    if(currentIndex === dots.length - 1 && diff < 0) diff *= 0.3;
-                    
-                    currentTranslate = prevTranslate + diff;
-                }
-            }
+                if (!isDragging) return;
+                const currentPosition = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+                const diff = currentPosition - startPos;
+                currentTranslate = prevTranslate + diff;
+            };
 
             const touchEnd = () => {
                 isDragging = false;
                 cancelAnimationFrame(animationID);
                 track.classList.remove('grabbing');
 
-                // Determine if we dragged far enough to snap to next slide
                 const movedBy = currentTranslate - prevTranslate;
 
-                if (movedBy < -100 && currentIndex < dots.length - 1) currentIndex += 1;
-                if (movedBy > 100 && currentIndex > 0) currentIndex -= 1;
+                // LOWER THRESHOLD: Swipes easily with just 30px of movement
+                if (movedBy < -30) currentIndex++;
+                else if (movedBy > 30) currentIndex--;
 
-                setPositionByIndex();
-            }
+                updatePosition();
+                startAutoPlay();
+            };
 
-            // Add Event Listeners
-            track.addEventListener('touchstart', touchStart(currentIndex), { passive: true });
-            track.addEventListener('touchend', touchEnd);
+            const animation = () => {
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                if (isDragging) requestAnimationFrame(animation);
+            };
+
+            // Event Listeners
+            track.addEventListener('touchstart', touchStart, { passive: true });
             track.addEventListener('touchmove', touchMove, { passive: true });
-
-            track.addEventListener('mousedown', touchStart(currentIndex));
-            track.addEventListener('mouseup', touchEnd);
-            track.addEventListener('mouseleave', () => { if(isDragging) touchEnd() });
+            track.addEventListener('touchend', touchEnd);
+            
+            track.addEventListener('mousedown', touchStart);
             track.addEventListener('mousemove', touchMove);
+            track.addEventListener('mouseup', touchEnd);
+            track.addEventListener('mouseleave', () => {
+                if(isDragging) touchEnd();
+                startAutoPlay();
+            });
+            track.addEventListener('mouseenter', stopAutoPlay);
 
-            // Handle Window Resize to fix layout shifts
-            window.addEventListener('resize', setPositionByIndex);
+            window.addEventListener('resize', () => updatePosition(false));
 
-            // Dot Click Navigation
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
-                    currentIndex = index;
-                    setPositionByIndex();
+                    stopAutoPlay();
+                    currentIndex = index + 1; // +1 because index 0 is the clone
+                    updatePosition();
+                    startAutoPlay();
                 });
             });
+
+            // Initialize layout and start timer
+            setTimeout(() => {
+                updatePosition(false);
+                startAutoPlay();
+            }, 100);
         });
     </script>
 </body>
