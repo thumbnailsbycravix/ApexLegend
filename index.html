@@ -39,9 +39,11 @@
     </script>
 
     <style>
+        /* Base Styles & Smooth Scrolling */
         html { scroll-behavior: smooth; }
         body { background-color: #f8fafc; color: #0f172a; overflow-x: hidden; }
 
+        /* Hardware-Accelerated Reveal Animations */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -53,6 +55,7 @@
             transform: translateY(0);
         }
 
+        /* Form Input Styling */
         .custom-input {
             background: transparent;
             border: none;
@@ -65,29 +68,10 @@
         }
         .custom-input:focus { border-bottom-color: #111836; }
 
+        /* Custom Gradients */
         .hero-gradient { background: linear-gradient(180deg, #ffffff 0%, #c7d2fe 100%); }
         .booking-gradient { background: linear-gradient(180deg, #ffffff 0%, #e0e7ff 100%); }
         .footer-bg { background-color: #0b112c; }
-
-        /* Slider Specific Classes */
-        .slider-track {
-            display: flex;
-            will-change: transform;
-            user-select: none; 
-            -webkit-user-select: none;
-            touch-action: pan-y;
-        }
-        .slider-item {
-            flex: 0 0 100%;
-            width: 100%;
-            padding: 0 10px;
-            box-sizing: border-box;
-        }
-        .slider-item img {
-            pointer-events: none;
-        }
-        .grabbing { cursor: grabbing !important; }
-        .grab { cursor: grab; }
     </style>
 </head>
 <body class="antialiased">
@@ -133,7 +117,7 @@
         </div>
     </header>
 
-    <main class="px-4 -mt-10 space-y-6 pb-20 max-w-md mx-auto md:max-w-4xl overflow-hidden">
+    <main class="px-4 -mt-10 space-y-6 pb-20 max-w-md mx-auto md:max-w-4xl">
 
         <div class="bg-white rounded-3xl p-8 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal">
             <h3 class="text-lg font-semibold text-navy-900 mb-2">Caring Dentists</h3>
@@ -201,7 +185,7 @@
             </a>
         </div>
 
-        <div class="bg-white rounded-3xl p-8 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal">
+        <div class="bg-white rounded-3xl p-8 text-center shadow-[0_8px_30px_rgb(0,0_0,0.04)] reveal">
             <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-6">
                 <i class="fa-solid fa-tooth text-blue-600 text-xl"></i>
             </div>
@@ -214,6 +198,15 @@
         <div class="text-center pt-10 reveal">
             <span class="inline-block border border-gray-200 px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 mb-6 uppercase"># Services</span>
             <h2 class="text-3xl font-medium text-navy-900 leading-tight mb-8">Comprehensive dental care for your smile</h2>
+            
+            <div class="flex justify-center mb-10">
+                <button class="bg-navy-900 text-white pl-6 pr-2 py-2 rounded-full flex items-center gap-4 hover:scale-105 transition-transform shadow-lg group">
+                    <span class="font-medium text-sm">More Service</span>
+                    <div class="bg-white text-navy-900 w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+                        <i class="fa-solid fa-arrow-right -rotate-45"></i>
+                    </div>
+                </button>
+            </div>
         </div>
 
         <div class="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] mb-8">
@@ -261,88 +254,69 @@
                     Reserve Your Spot
                 </button>
             </form>
+            
             <i class="fa-solid fa-quote-left absolute -bottom-4 -left-2 text-8xl text-blue-100 opacity-50 z-0"></i>
         </div>
 
-        <div class="reveal relative overflow-hidden -mx-4 px-4 pb-4" id="slider-wrapper">
-            <div class="slider-track grab" id="testimonial-track">
-                
-                <div class="slider-item original-slide">
-                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
-                        <div>
-                            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
-                            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
-                                The staff made me feel so comfortable and cared for. Pain-free treatment, friendly service, and a brighter smile—couldn't ask for better care!
-                            </p>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Anjali Sharma">
-                            <div>
-                                <h4 class="text-navy-900 font-semibold text-sm">Anjali Sharma</h4>
-                            </div>
-                        </div>
-                    </div>
+        <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal relative">
+            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
+            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
+                The staff made me feel so comfortable and cared for. Pain-free treatment, friendly service, and a brighter smile—couldn't ask for better care!
+            </p>
+            <div class="flex items-center gap-4">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Kristin Cooper">
+                <div>
+                    <h4 class="text-navy-900 font-semibold text-sm">Cooper, Kristin</h4>
+                    <p class="text-gray-500 text-xs">Medical Assistant</p>
                 </div>
-
-                <div class="slider-item original-slide">
-                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
-                        <div>
-                            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
-                            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
-                                I've always dreaded visiting the dentist, but ApexCare changed that completely. The procedure was incredibly smooth and the recovery was fast.
-                            </p>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Rahul Desai">
-                            <div>
-                                <h4 class="text-navy-900 font-semibold text-sm">Rahul Desai</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="slider-item original-slide">
-                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
-                        <div>
-                            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
-                            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
-                                State-of-the-art clinic with a very warm environment. The doctors explained every step of the process patiently. Highly recommended!
-                            </p>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Priya Patel">
-                            <div>
-                                <h4 class="text-navy-900 font-semibold text-sm">Priya Patel</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-            
-            <div class="flex justify-center items-center gap-2 mt-6" id="slider-dots">
-                <button class="w-2.5 h-2.5 rounded-full bg-navy-900 transition-colors duration-300"></button>
-                <button class="w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300"></button>
-                <button class="w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300"></button>
             </div>
         </div>
 
         <div class="text-center pt-10 reveal">
             <span class="inline-block border border-gray-200 px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 mb-6 uppercase"># Our Team</span>
             <h2 class="text-3xl font-medium text-navy-900 leading-tight mb-6">Your trusted dental professionals</h2>
+            
+            <div class="flex justify-center mb-8">
+                <button class="bg-navy-900 text-white pl-6 pr-2 py-2 rounded-full flex items-center gap-4 hover:scale-105 transition-transform shadow-lg group">
+                    <span class="font-medium text-sm">See a Doctor Today</span>
+                    <div class="bg-white text-navy-900 w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+                        <i class="fa-solid fa-arrow-right -rotate-45"></i>
+                    </div>
+                </button>
+            </div>
         </div>
 
-        <div class="bg-white rounded-3xl p-4 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal group hover:-translate-y-2 transition-transform duration-300 cursor-pointer">
-            <div class="rounded-2xl overflow-hidden mb-4 bg-gray-100">
-                <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=600" alt="Dr. Askary" class="w-full h-72 object-cover object-top group-hover:scale-105 transition-transform duration-700">
+        <div id="team-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 reveal">
+            
+            <div class="stagger-item-team opacity-0 transform translate-y-4 bg-white rounded-3xl p-4 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] group hover:-translate-y-2 transition-transform duration-300 cursor-pointer team-member-card">
+                <div class="rounded-2xl overflow-hidden mb-4 bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=600" alt="Dr. Shubham Sharma" class="w-full h-72 object-cover object-top group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <h3 class="text-navy-900 font-semibold mb-1">Dr. Shubham Sharma</h3>
+                <p class="text-gray-500 text-sm pb-2">Orthodontist</p>
             </div>
-            <h3 class="text-navy-900 font-semibold mb-1">Dr. Askary</h3>
-            <p class="text-gray-500 text-sm pb-2">Orthodontist</p>
+
+            <div class="stagger-item-team opacity-0 transform translate-y-4 bg-white rounded-3xl p-4 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] group hover:-translate-y-2 transition-transform duration-300 cursor-pointer team-member-card">
+                <div class="rounded-2xl overflow-hidden mb-4 bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb52?auto=format&fit=crop&q=80&w=600" alt="Dr. Abhishek Khanna" class="w-full h-72 object-cover object-top group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <h3 class="text-navy-900 font-semibold mb-1">Dr. Abhishek Khanna</h3>
+                <p class="text-gray-500 text-sm pb-2">Oral Surgeon</p>
+            </div>
         </div>
 
         <div class="text-center pt-10 reveal">
             <span class="inline-block border border-gray-200 px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 mb-6 uppercase"># Insights</span>
             <h2 class="text-3xl font-medium text-navy-900 leading-tight mb-6">From our blog: tips & insights for healthy smiles</h2>
+            
+            <div class="flex justify-center mb-8">
+                <button class="bg-navy-900 text-white pl-6 pr-2 py-2 rounded-full flex items-center gap-4 hover:scale-105 transition-transform shadow-lg group">
+                    <span class="font-medium text-sm">Check All Insights</span>
+                    <div class="bg-white text-navy-900 w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-gray-100 transition-colors">
+                        <i class="fa-solid fa-arrow-right -rotate-45"></i>
+                    </div>
+                </button>
+            </div>
         </div>
 
         <div class="space-y-8">
@@ -353,6 +327,21 @@
                 <p class="text-gray-500 text-sm mb-2">October 5, 2025</p>
                 <h3 class="text-xl font-medium text-navy-900 mb-2">5 Tips to Keep Your Teeth Healthy</h3>
                 <p class="text-gray-600 text-sm mb-4">Learn simple daily habits that keep your teeth clean and strong</p>
+                <button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 group-hover:bg-navy-900 group-hover:text-white transition-colors">
+                    <i class="fa-solid fa-arrow-right -rotate-45"></i>
+                </button>
+            </article>
+
+            <article class="reveal group cursor-pointer">
+                <div class="rounded-3xl overflow-hidden mb-4">
+                    <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800" alt="Dental Clinic" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <p class="text-gray-500 text-sm mb-2">October 4, 2025</p>
+                <h3 class="text-xl font-medium text-navy-900 mb-2">How to Choose the Right Toothbrush</h3>
+                <p class="text-gray-600 text-sm mb-4">Find out what toothbrush suits your dental needs best</p>
+                <button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 group-hover:bg-navy-900 group-hover:text-white transition-colors">
+                    <i class="fa-solid fa-arrow-right -rotate-45"></i>
+                </button>
             </article>
         </div>
     </main>
@@ -363,26 +352,66 @@
                 <i class="fa-solid fa-asterisk text-white text-2xl"></i>
                 <span class="text-2xl font-bold tracking-tight">ApexCare</span>
             </div>
+            
             <p class="text-gray-400 text-sm mb-8">2066 Duncan Avenue,<br>Brooklyn, New York</p>
+            <p class="text-gray-500 text-xs mb-8">&copy; 2025. <span class="underline underline-offset-2">ApexCare.</span><br>All Rights Reserved.</p>
+            
+            <div class="bg-white text-navy-900 rounded-2xl p-6 mb-10 shadow-xl">
+                <p class="text-sm mb-4 text-gray-600">Expert medical care, easily scheduled at your convenience</p>
+                <p class="text-xl font-medium mb-1">+(1234)-123-56</p>
+                <a href="mailto:info@apexcare.com" class="text-sm border-b border-navy-900 pb-0.5">info@apexcare.com</a>
+            </div>
+
+            <h4 class="font-medium mb-4 text-sm">Quick Links</h4>
+            <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-10 text-sm text-gray-300">
+                <a href="#" class="hover:text-white transition-colors">About</a>
+                <a href="#" class="hover:text-white transition-colors">Services</a>
+                <a href="#" class="hover:text-white transition-colors">Pricing</a>
+                <a href="#" class="hover:text-white transition-colors">Contact</a>
+                <a href="#" class="hover:text-white transition-colors">Style guide</a>
+                <a href="#" class="hover:text-white transition-colors">Licenses</a>
+                <a href="#" class="hover:text-white transition-colors">Change Log</a>
+            </div>
+
+            <h4 class="font-medium mb-4 text-sm">Newsletter</h4>
+            <div class="relative mb-8">
+                <input type="email" placeholder="Email Address" class="w-full bg-[#1e2548] border border-transparent rounded-full py-3.5 pl-6 pr-14 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors">
+                <button class="absolute right-2 top-2 bottom-2 w-10 bg-[#313a60] rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors">
+                    <i class="fa-regular fa-paper-plane text-xs"></i>
+                </button>
+            </div>
+
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full border border-[#313a60] flex items-center justify-center hover:bg-[#313a60] transition-colors"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full border border-[#313a60] flex items-center justify-center hover:bg-[#313a60] transition-colors"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full border border-[#313a60] flex items-center justify-center hover:bg-[#313a60] transition-colors"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
+                <a href="#" class="w-10 h-10 rounded-full border border-[#313a60] flex items-center justify-center hover:bg-[#313a60] transition-colors"><i class="fa-brands fa-pinterest-p text-sm"></i></a>
+            </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             
-            // 1. Reveal Animations Observer
+            // 1. General Reveal Animations Observer
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
+                        observer.unobserve(entry.target); // Only animate once
                     }
                 });
-            }, { threshold: 0.15 });
+            }, observerOptions);
 
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            // 2. Staggered Services List
+            // 2. Staggered List Animation for Services
             const servicesList = document.getElementById('services-list');
             const staggerItems = document.querySelectorAll('.stagger-item');
             const listObserver = new IntersectionObserver((entries) => {
@@ -391,7 +420,7 @@
                         setTimeout(() => {
                             item.classList.remove('opacity-0', 'translate-y-4');
                             item.classList.add('opacity-100', 'translate-y-0');
-                        }, index * 100);
+                        }, index * 100); // 100ms delay between each item
                     });
                     listObserver.unobserve(servicesList);
                 }
@@ -399,193 +428,22 @@
 
             if(servicesList) listObserver.observe(servicesList);
 
-            // 3. THE BULLETPROOF SLIDER
-            const track = document.getElementById('testimonial-track');
-            const originalSlides = Array.from(document.querySelectorAll('.original-slide'));
-            const dots = document.querySelectorAll('#slider-dots button');
-            
-            // Clone first and last for infinite loop
-            const firstClone = originalSlides[0].cloneNode(true);
-            const lastClone = originalSlides[originalSlides.length - 1].cloneNode(true);
-            firstClone.id = 'first-clone';
-            lastClone.id = 'last-clone';
-            
-            track.appendChild(firstClone);
-            track.insertBefore(lastClone, originalSlides[0]);
-            
-            const allSlides = document.querySelectorAll('.slider-item');
-            
-            let currentIndex = 1;
-            let isDragging = false;
-            let isScrolling = false; 
-            
-            let startPosX = 0;
-            let startPosY = 0;
-            let currentTranslate = 0;
-            let prevTranslate = 0;
-            let animationID;
-            let autoPlayInterval;
-
-            // Failsafe bounds
-            const getValidIndex = (index) => {
-                if (index < 0) return 0;
-                if (index > allSlides.length - 1) return allSlides.length - 1;
-                return index;
-            };
-
-            const updatePosition = (animate = true) => {
-                currentIndex = getValidIndex(currentIndex);
-                track.style.transition = animate ? 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
-                currentTranslate = currentIndex * -track.offsetWidth;
-                track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`; 
-                
-                // Update Dots
-                let activeDotIndex = currentIndex - 1;
-                if (currentIndex === 0) activeDotIndex = originalSlides.length - 1;
-                if (currentIndex === allSlides.length - 1) activeDotIndex = 0;
-                
-                dots.forEach((dot, index) => {
-                    dot.classList.toggle('bg-navy-900', index === activeDotIndex);
-                    dot.classList.toggle('bg-gray-200', index !== activeDotIndex);
-                });
-            };
-
-            // Seamless jump when animation finishes naturally
-            track.addEventListener('transitionend', () => {
-                if (allSlides[currentIndex].id === 'first-clone') {
-                    currentIndex = 1;
-                    updatePosition(false);
-                } else if (allSlides[currentIndex].id === 'last-clone') {
-                    currentIndex = originalSlides.length;
-                    updatePosition(false);
+            // 3. Staggered Team Grid Animation (NEW)
+            const teamGrid = document.getElementById('team-grid');
+            const teamStaggerItems = document.querySelectorAll('.stagger-item-team');
+            const teamObserver = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting) {
+                    teamStaggerItems.forEach((item, index) => {
+                        setTimeout(() => {
+                            item.classList.remove('opacity-0', 'translate-y-4');
+                            item.classList.add('opacity-100', 'translate-y-0');
+                        }, index * 100); // 100ms delay between each item
+                    });
+                    teamObserver.unobserve(teamGrid);
                 }
-            });
+            }, { threshold: 0.2 });
 
-            // Visibility API: Prevents white space when switching tabs
-            const startAutoPlay = () => {
-                clearInterval(autoPlayInterval);
-                autoPlayInterval = setInterval(() => {
-                    if (!document.hidden) {
-                        currentIndex++;
-                        updatePosition(true);
-                    }
-                }, 2500); 
-            };
-
-            document.addEventListener("visibilitychange", () => {
-                if (document.hidden) {
-                    clearInterval(autoPlayInterval);
-                } else {
-                    startAutoPlay();
-                }
-            });
-
-            const touchStart = (event) => {
-                clearInterval(autoPlayInterval);
-                
-                // TELEPORT CHECK: If grabbed on a clone, invisibly teleport to real slide first
-                if (currentIndex === 0) {
-                    currentIndex = originalSlides.length;
-                    updatePosition(false);
-                } else if (currentIndex === allSlides.length - 1) {
-                    currentIndex = 1;
-                    updatePosition(false);
-                }
-
-                isDragging = true;
-                isScrolling = false; 
-                
-                startPosX = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
-                startPosY = event.type.includes('mouse') ? event.pageY : event.touches[0].clientY;
-                
-                // Catch the slider mid-air using computed matrix
-                const style = window.getComputedStyle(track);
-                const matrix = new WebKitCSSMatrix(style.transform);
-                currentTranslate = matrix.m41; 
-                prevTranslate = currentTranslate;
-                
-                track.style.transition = 'none'; 
-                track.classList.add('grabbing');
-                animationID = requestAnimationFrame(animation);
-            };
-
-            const touchMove = (event) => {
-                if (!isDragging) return;
-                
-                const currentPosX = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
-                const currentPosY = event.type.includes('mouse') ? event.pageY : event.touches[0].clientY;
-                
-                const diffX = currentPosX - startPosX;
-                const diffY = currentPosY - startPosY;
-
-                // Directional lock
-                if (!isScrolling) {
-                    if (Math.abs(diffY) > Math.abs(diffX)) {
-                        isScrolling = true;
-                        isDragging = false;
-                        track.classList.remove('grabbing');
-                        cancelAnimationFrame(animationID);
-                        return;
-                    }
-                }
-
-                if (!isScrolling) {
-                    currentTranslate = prevTranslate + diffX;
-                }
-            };
-
-            const touchEnd = () => {
-                if (!isDragging) return;
-                
-                isDragging = false;
-                cancelAnimationFrame(animationID);
-                track.classList.remove('grabbing');
-
-                const movedBy = currentTranslate - prevTranslate;
-
-                // Move slide if dragged more than 30px
-                if (movedBy < -30) currentIndex++;
-                else if (movedBy > 30) currentIndex--;
-
-                updatePosition(true);
-                startAutoPlay();
-            };
-
-            const animation = () => {
-                track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`;
-                if (isDragging) requestAnimationFrame(animation);
-            };
-
-            // Event Listeners
-            track.addEventListener('touchstart', touchStart, { passive: true });
-            track.addEventListener('touchmove', touchMove, { passive: true });
-            track.addEventListener('touchend', touchEnd);
-            
-            track.addEventListener('mousedown', touchStart);
-            track.addEventListener('mousemove', touchMove);
-            track.addEventListener('mouseup', touchEnd);
-            track.addEventListener('mouseleave', () => {
-                if(isDragging) touchEnd();
-                startAutoPlay();
-            });
-
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    clearInterval(autoPlayInterval);
-                    currentIndex = index + 1; 
-                    updatePosition(true);
-                    startAutoPlay();
-                });
-            });
-
-            // ResizeObserver fixes the start-up calculation bug
-            const resizeObserver = new ResizeObserver(() => {
-                updatePosition(false);
-            });
-            resizeObserver.observe(track);
-
-            // Init Autoplay
-            startAutoPlay();
+            if(teamGrid) teamObserver.observe(teamGrid);
         });
     </script>
 </body>
