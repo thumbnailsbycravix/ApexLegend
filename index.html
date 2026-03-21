@@ -39,11 +39,9 @@
     </script>
 
     <style>
-        /* Base Styles & Smooth Scrolling */
         html { scroll-behavior: smooth; }
         body { background-color: #f8fafc; color: #0f172a; overflow-x: hidden; }
 
-        /* Hardware-Accelerated Reveal Animations */
         .reveal {
             opacity: 0;
             transform: translateY(40px);
@@ -55,7 +53,6 @@
             transform: translateY(0);
         }
 
-        /* Form Input Styling */
         .custom-input {
             background: transparent;
             border: none;
@@ -68,7 +65,6 @@
         }
         .custom-input:focus { border-bottom-color: #111836; }
 
-        /* Custom Gradients */
         .hero-gradient { background: linear-gradient(180deg, #ffffff 0%, #c7d2fe 100%); }
         .booking-gradient { background: linear-gradient(180deg, #ffffff 0%, #e0e7ff 100%); }
         .footer-bg { background-color: #0b112c; }
@@ -79,8 +75,7 @@
             will-change: transform;
             user-select: none; 
             -webkit-user-select: none;
-            /* Prevents browser from interpreting horizontal swipes as page navigation */
-            touch-action: pan-y; 
+            touch-action: pan-y; /* Fixes shaking while scrolling */
         }
         .slider-item {
             flex: 0 0 100%;
@@ -89,7 +84,7 @@
             box-sizing: border-box;
         }
         .slider-item img {
-            pointer-events: none; /* Prevents ghost dragging on images */
+            pointer-events: none;
         }
         .grabbing { cursor: grabbing !important; }
         .grab { cursor: grab; }
@@ -404,7 +399,7 @@
 
             if(servicesList) listObserver.observe(servicesList);
 
-            // 3. THE ULTIMATE SMOOTH SLIDER SCRIPT
+            // 3. UNBREAKABLE SMOOTH SLIDER SCRIPT
             const track = document.getElementById('testimonial-track');
             const originalSlides = Array.from(document.querySelectorAll('.original-slide'));
             const dots = document.querySelectorAll('#slider-dots button');
@@ -422,8 +417,7 @@
             
             let currentIndex = 1;
             let isDragging = false;
-            let isScrolling = false; // Fixes shaking while scrolling down
-            let isAnimating = false; // Fixes white blank space bug
+            let isScrolling = false; 
             
             let startPosX = 0;
             let startPosY = 0;
@@ -433,18 +427,8 @@
             let autoPlayInterval;
 
             const updatePosition = (animate = true) => {
-                if (animate) {
-                    isAnimating = true;
-                    // Changed to a softer, longer ease-out for that elegant glide
-                    track.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)'; 
-                } else {
-                    track.style.transition = 'none';
-                }
-                
+                track.style.transition = animate ? 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
                 currentTranslate = currentIndex * -track.offsetWidth;
-                prevTranslate = currentTranslate;
-                
-                // Using translate3d forces the phone's GPU to do the work = Zero Lag
                 track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`; 
                 
                 // Update Dots
@@ -458,9 +442,8 @@
                 });
             };
 
-            // Seamless jump when animation finishes
+            // Seamless jump when animation finishes naturally
             track.addEventListener('transitionend', () => {
-                isAnimating = false;
                 if (allSlides[currentIndex].id === 'first-clone') {
                     currentIndex = 1;
                     updatePosition(false);
@@ -470,25 +453,38 @@
                 }
             });
 
+            // AutoPlay set to 2.5 seconds
             const startAutoPlay = () => {
                 clearInterval(autoPlayInterval);
                 autoPlayInterval = setInterval(() => {
-                    if (!isAnimating) {
-                        currentIndex++;
-                        updatePosition();
-                    }
-                }, 4000);
+                    currentIndex++;
+                    updatePosition();
+                }, 2500); 
             };
 
             const touchStart = (event) => {
-                if (isAnimating) return; // Prevent breaking the slider if swiping wildly
                 clearInterval(autoPlayInterval);
                 
+                // TELEPORT CHECK: If grabbed on a clone, invisibly teleport to real slide first
+                if (currentIndex === 0) {
+                    currentIndex = originalSlides.length;
+                    updatePosition(false);
+                } else if (currentIndex === allSlides.length - 1) {
+                    currentIndex = 1;
+                    updatePosition(false);
+                }
+
                 isDragging = true;
-                isScrolling = false; // Reset scrolling lock
+                isScrolling = false; 
                 
                 startPosX = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
                 startPosY = event.type.includes('mouse') ? event.pageY : event.touches[0].clientY;
+                
+                // Catch the slider mid-air using computed matrix
+                const style = window.getComputedStyle(track);
+                const matrix = new WebKitCSSMatrix(style.transform);
+                currentTranslate = matrix.m41; // Get exact X translation
+                prevTranslate = currentTranslate;
                 
                 track.style.transition = 'none'; 
                 track.classList.add('grabbing');
@@ -496,7 +492,7 @@
             };
 
             const touchMove = (event) => {
-                if (!isDragging || isAnimating) return;
+                if (!isDragging) return;
                 
                 const currentPosX = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
                 const currentPosY = event.type.includes('mouse') ? event.pageY : event.touches[0].clientY;
@@ -504,7 +500,7 @@
                 const diffX = currentPosX - startPosX;
                 const diffY = currentPosY - startPosY;
 
-                // DIRECTIONAL LOCK: If moving finger up/down more than left/right, let the browser scroll
+                // Directional lock
                 if (!isScrolling) {
                     if (Math.abs(diffY) > Math.abs(diffX)) {
                         isScrolling = true;
@@ -515,7 +511,6 @@
                     }
                 }
 
-                // If we passed the scroll check, update the slide position
                 if (!isScrolling) {
                     currentTranslate = prevTranslate + diffX;
                 }
@@ -530,11 +525,11 @@
 
                 const movedBy = currentTranslate - prevTranslate;
 
-                // Super light touch threshold (30px)
-                if (movedBy < -30 && currentIndex < allSlides.length - 1) currentIndex++;
-                else if (movedBy > 30 && currentIndex > 0) currentIndex--;
+                // Move slide if dragged more than 30px
+                if (movedBy < -30) currentIndex++;
+                else if (movedBy > 30) currentIndex--;
 
-                updatePosition();
+                updatePosition(true);
                 startAutoPlay();
             };
 
@@ -560,10 +555,9 @@
 
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
-                    if(isAnimating) return;
                     clearInterval(autoPlayInterval);
                     currentIndex = index + 1; 
-                    updatePosition();
+                    updatePosition(true);
                     startAutoPlay();
                 });
             });
