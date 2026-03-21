@@ -368,7 +368,7 @@
         <div class="space-y-8">
             <article class="reveal group cursor-pointer">
                 <div class="rounded-3xl overflow-hidden mb-4">
-                    <img src="https://images.unsplash.com/photo-1598256989800-fea5ce5146f2?auto=format&fit=crop&q=80&w=800" alt="Teeth Cleaning" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-700">
+                    <img src="https://i.ibb.co/rGBKt04w/image-1.jpg" alt="Teeth Cleaning" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-700">
                 </div>
                 <p class="text-gray-500 text-sm mb-2">October 5, 2025</p>
                 <h3 class="text-xl font-medium text-navy-900 mb-2">5 Tips to Keep Your Teeth Healthy</h3>
@@ -486,7 +486,7 @@
                 teamObserver.observe(teamGrid);
             }
 
-            // 4. Slider Logic (STRICT MATH FIX)
+            // 4. Slider Logic (DEBOUNCED SAFE RESIZE)
             const track = document.getElementById('testimonial-track');
             const originalSlides = Array.from(document.querySelectorAll('.original-slide'));
             const dots = document.querySelectorAll('#slider-dots button');
@@ -516,8 +516,10 @@
 
             const updatePosition = (animate = true) => {
                 currentIndex = getValidIndex(currentIndex);
+                const slideWidth = allSlides[0].offsetWidth; // Strictly bind math to individual slide
+                
                 track.style.transition = animate ? 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
-                currentTranslate = currentIndex * -track.offsetWidth;
+                currentTranslate = currentIndex * -slideWidth;
                 track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`; 
                 
                 let activeDotIndex = currentIndex - 1;
@@ -530,13 +532,22 @@
                 });
             };
 
+            // Set Initial Layout Instantly
+            updatePosition(false);
+
             track.addEventListener('transitionend', () => {
                 if (allSlides[currentIndex].id === 'first-clone') { currentIndex = 1; updatePosition(false); }
                 if (allSlides[currentIndex].id === 'last-clone') { currentIndex = originalSlides.length; updatePosition(false); }
             });
 
             const startAutoPlay = () => {
-                autoPlayInterval = setInterval(() => { if(!document.hidden){ currentIndex++; updatePosition(true); } }, 3000);
+                clearInterval(autoPlayInterval); // Ensure strictly ONE timer runs
+                autoPlayInterval = setInterval(() => {
+                    if(!document.hidden){
+                        currentIndex++;
+                        updatePosition(true);
+                    }
+                }, 3000);
             };
 
             document.addEventListener("visibilitychange", () => {
@@ -550,7 +561,6 @@
             const touchStart = (event) => {
                 clearInterval(autoPlayInterval);
                 
-                // Invisible teleport
                 if (currentIndex === 0) {
                     currentIndex = originalSlides.length;
                     updatePosition(false);
@@ -565,8 +575,7 @@
                 startPosX = event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
                 startPosY = event.type.includes('mouse') ? event.pageY : event.touches[0].clientY;
                 
-                // STRICT MATH: Eliminates white space bug instantly by locking to exact coordinate
-                currentTranslate = currentIndex * -track.offsetWidth; 
+                currentTranslate = currentIndex * -allSlides[0].offsetWidth; 
                 prevTranslate = currentTranslate;
                 
                 track.style.transition = 'none'; 
@@ -631,7 +640,14 @@
                 startAutoPlay();
             });
 
-            new ResizeObserver(() => updatePosition(false)).observe(track);
+            // Replaced buggy ResizeObserver with safe Debounced Window Resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    updatePosition(false);
+                }, 100);
+            });
 
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
@@ -642,6 +658,7 @@
                 });
             });
 
+            // Boot up auto scroll instantly
             startAutoPlay();
         });
     </script>
