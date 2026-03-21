@@ -72,6 +72,23 @@
         .hero-gradient { background: linear-gradient(180deg, #ffffff 0%, #c7d2fe 100%); }
         .booking-gradient { background: linear-gradient(180deg, #ffffff 0%, #e0e7ff 100%); }
         .footer-bg { background-color: #0b112c; }
+
+        /* Slider Specific Classes */
+        .slider-track {
+            display: flex;
+            will-change: transform;
+            /* Prevents text selection while dragging */
+            user-select: none; 
+            -webkit-user-select: none;
+        }
+        .slider-item {
+            flex: 0 0 100%;
+            width: 100%;
+            padding: 0 10px; /* Spacing between cards */
+            box-sizing: border-box;
+        }
+        .grabbing { cursor: grabbing !important; }
+        .grab { cursor: grab; }
     </style>
 </head>
 <body class="antialiased">
@@ -117,7 +134,7 @@
         </div>
     </header>
 
-    <main class="px-4 -mt-10 space-y-6 pb-20 max-w-md mx-auto md:max-w-4xl">
+    <main class="px-4 -mt-10 space-y-6 pb-20 max-w-md mx-auto md:max-w-4xl overflow-hidden">
 
         <div class="bg-white rounded-3xl p-8 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal">
             <h3 class="text-lg font-semibold text-navy-900 mb-2">Caring Dentists</h3>
@@ -198,15 +215,6 @@
         <div class="text-center pt-10 reveal">
             <span class="inline-block border border-gray-200 px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 mb-6 uppercase"># Services</span>
             <h2 class="text-3xl font-medium text-navy-900 leading-tight mb-8">Comprehensive dental care for your smile</h2>
-            
-            <div class="flex justify-center mb-10">
-                <button class="bg-navy-900 text-white pl-6 pr-2 py-2 rounded-full flex items-center gap-4 hover:scale-105 transition-transform shadow-lg group">
-                    <span class="font-medium text-sm">More Service</span>
-                    <div class="bg-white text-navy-900 w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-gray-100 transition-colors">
-                        <i class="fa-solid fa-arrow-right -rotate-45"></i>
-                    </div>
-                </button>
-            </div>
         </div>
 
         <div class="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] mb-8">
@@ -254,36 +262,75 @@
                     Reserve Your Spot
                 </button>
             </form>
-            
             <i class="fa-solid fa-quote-left absolute -bottom-4 -left-2 text-8xl text-blue-100 opacity-50 z-0"></i>
         </div>
 
-        <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal relative">
-            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
-            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
-                The staff made me feel so comfortable and cared for. Pain-free treatment, friendly service, and a brighter smile—couldn't ask for better care!
-            </p>
-            <div class="flex items-center gap-4">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Kristin Cooper">
-                <div>
-                    <h4 class="text-navy-900 font-semibold text-sm">Cooper, Kristin</h4>
-                    <p class="text-gray-500 text-xs">Medical Assistant</p>
+        <div class="reveal relative overflow-hidden -mx-4 px-4 pb-4" id="slider-wrapper">
+            <div class="slider-track grab" id="testimonial-track">
+                
+                <div class="slider-item">
+                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
+                        <div>
+                            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
+                            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
+                                The staff made me feel so comfortable and cared for. Pain-free treatment, friendly service, and a brighter smile—couldn't ask for better care!
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Anjali Sharma">
+                            <div>
+                                <h4 class="text-navy-900 font-semibold text-sm">Anjali Sharma</h4>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="slider-item">
+                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
+                        <div>
+                            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
+                            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
+                                I've always dreaded visiting the dentist, but ApexCare changed that completely. The procedure was incredibly smooth and the recovery was fast.
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Rahul Desai">
+                            <div>
+                                <h4 class="text-navy-900 font-semibold text-sm">Rahul Desai</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slider-item">
+                    <div class="bg-white rounded-3xl p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] h-full flex flex-col justify-between border border-gray-50 pointer-events-none">
+                        <div>
+                            <i class="fa-solid fa-quote-left text-5xl text-blue-100 mb-4"></i>
+                            <p class="font-serif italic text-navy-900 text-lg leading-relaxed mb-6">
+                                State-of-the-art clinic with a very warm environment. The doctors explained every step of the process patiently. Highly recommended!
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full object-cover" alt="Priya Patel">
+                            <div>
+                                <h4 class="text-navy-900 font-semibold text-sm">Priya Patel</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="flex justify-center items-center gap-2 mt-6" id="slider-dots">
+                <button class="w-2.5 h-2.5 rounded-full bg-navy-900 transition-colors duration-300" data-index="0"></button>
+                <button class="w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300" data-index="1"></button>
+                <button class="w-2.5 h-2.5 rounded-full bg-gray-200 transition-colors duration-300" data-index="2"></button>
             </div>
         </div>
 
         <div class="text-center pt-10 reveal">
             <span class="inline-block border border-gray-200 px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 mb-6 uppercase"># Our Team</span>
             <h2 class="text-3xl font-medium text-navy-900 leading-tight mb-6">Your trusted dental professionals</h2>
-            
-            <div class="flex justify-center mb-8">
-                <button class="bg-navy-900 text-white pl-6 pr-2 py-2 rounded-full flex items-center gap-4 hover:scale-105 transition-transform shadow-lg group">
-                    <span class="font-medium text-sm">See a Doctor Today</span>
-                    <div class="bg-white text-navy-900 w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-gray-100 transition-colors">
-                        <i class="fa-solid fa-arrow-right -rotate-45"></i>
-                    </div>
-                </button>
-            </div>
         </div>
 
         <div class="bg-white rounded-3xl p-4 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal group hover:-translate-y-2 transition-transform duration-300 cursor-pointer">
@@ -297,15 +344,6 @@
         <div class="text-center pt-10 reveal">
             <span class="inline-block border border-gray-200 px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 mb-6 uppercase"># Insights</span>
             <h2 class="text-3xl font-medium text-navy-900 leading-tight mb-6">From our blog: tips & insights for healthy smiles</h2>
-            
-            <div class="flex justify-center mb-8">
-                <button class="bg-navy-900 text-white pl-6 pr-2 py-2 rounded-full flex items-center gap-4 hover:scale-105 transition-transform shadow-lg group">
-                    <span class="font-medium text-sm">Check All Insights</span>
-                    <div class="bg-white text-navy-900 w-10 h-10 rounded-full flex items-center justify-center group-hover:bg-gray-100 transition-colors">
-                        <i class="fa-solid fa-arrow-right -rotate-45"></i>
-                    </div>
-                </button>
-            </div>
         </div>
 
         <div class="space-y-8">
@@ -316,21 +354,6 @@
                 <p class="text-gray-500 text-sm mb-2">October 5, 2025</p>
                 <h3 class="text-xl font-medium text-navy-900 mb-2">5 Tips to Keep Your Teeth Healthy</h3>
                 <p class="text-gray-600 text-sm mb-4">Learn simple daily habits that keep your teeth clean and strong</p>
-                <button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 group-hover:bg-navy-900 group-hover:text-white transition-colors">
-                    <i class="fa-solid fa-arrow-right -rotate-45"></i>
-                </button>
-            </article>
-
-            <article class="reveal group cursor-pointer">
-                <div class="rounded-3xl overflow-hidden mb-4">
-                    <img src="https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80&w=800" alt="Dental Clinic" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-700">
-                </div>
-                <p class="text-gray-500 text-sm mb-2">October 4, 2025</p>
-                <h3 class="text-xl font-medium text-navy-900 mb-2">How to Choose the Right Toothbrush</h3>
-                <p class="text-gray-600 text-sm mb-4">Find out what toothbrush suits your dental needs best</p>
-                <button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 group-hover:bg-navy-900 group-hover:text-white transition-colors">
-                    <i class="fa-solid fa-arrow-right -rotate-45"></i>
-                </button>
             </article>
         </div>
     </main>
@@ -341,83 +364,137 @@
                 <i class="fa-solid fa-asterisk text-white text-2xl"></i>
                 <span class="text-2xl font-bold tracking-tight">ApexCare</span>
             </div>
-            
             <p class="text-gray-400 text-sm mb-8">2066 Duncan Avenue,<br>Brooklyn, New York</p>
-            <p class="text-gray-500 text-xs mb-8">&copy; 2025. <span class="underline underline-offset-2">ApexCare.</span><br>All Rights Reserved.</p>
-            
-            <div class="bg-white text-navy-900 rounded-2xl p-6 mb-10 shadow-xl">
-                <p class="text-sm mb-4 text-gray-600">Expert medical care, easily scheduled at your convenience</p>
-                <p class="text-xl font-medium mb-1">+(1234)-123-56</p>
-                <a href="mailto:info@apexcare.com" class="text-sm border-b border-navy-900 pb-0.5">info@apexcare.com</a>
-            </div>
-
-            <h4 class="font-medium mb-4 text-sm">Quick Links</h4>
-            <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-10 text-sm text-gray-300">
-                <a href="#" class="hover:text-white transition-colors">About</a>
-                <a href="#" class="hover:text-white transition-colors">Services</a>
-                <a href="#" class="hover:text-white transition-colors">Pricing</a>
-                <a href="#" class="hover:text-white transition-colors">Contact</a>
-                <a href="#" class="hover:text-white transition-colors">Style guide</a>
-                <a href="#" class="hover:text-white transition-colors">Licenses</a>
-                <a href="#" class="hover:text-white transition-colors">Change Log</a>
-            </div>
-
-            <h4 class="font-medium mb-4 text-sm">Newsletter</h4>
-            <div class="relative mb-8">
-                <input type="email" placeholder="Email Address" class="w-full bg-[#1e2548] border border-transparent rounded-full py-3.5 pl-6 pr-14 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors">
-                <button class="absolute right-2 top-2 bottom-2 w-10 bg-[#313a60] rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors">
-                    <i class="fa-regular fa-paper-plane text-xs"></i>
-                </button>
-            </div>
-
-            <div class="flex gap-4">
-                <a href="#" class="w-10 h-10 rounded-full border border-[#313a60] flex items-center justify-center hover:bg-[#313a60] transition-colors"><i class="fa-brands fa-facebook-f text-sm"></i></a>
-                <a href="#" class="w-10 h-10 rounded-full border border-[#313a60] flex items-center justify-center hover:bg-[#313a60] transition-colors"><i class="fa-brands fa-x-twitter text-sm"></i></a>
-                <a href="#" class="w-10 h-10 rounded-full border border-[#313a60] flex items-center justify-center hover:bg-[#313a60] transition-colors"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
-                <a href="#" class="w-10 h-10 rounded-full border border-[#313a60] flex items-center justify-center hover:bg-[#313a60] transition-colors"><i class="fa-brands fa-pinterest-p text-sm"></i></a>
-            </div>
         </div>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // General Scroll Reveal via Intersection Observer
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15
-            };
-
+            
+            // 1. Reveal Animations Observer
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
-                        observer.unobserve(entry.target); // Only animate once
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, observerOptions);
+            }, { threshold: 0.15 });
 
-            document.querySelectorAll('.reveal').forEach(el => {
-                observer.observe(el);
-            });
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-            // Staggered List Animation for Services
+            // 2. Staggered Services List
             const servicesList = document.getElementById('services-list');
             const staggerItems = document.querySelectorAll('.stagger-item');
-            
             const listObserver = new IntersectionObserver((entries) => {
                 if(entries[0].isIntersecting) {
                     staggerItems.forEach((item, index) => {
                         setTimeout(() => {
                             item.classList.remove('opacity-0', 'translate-y-4');
                             item.classList.add('opacity-100', 'translate-y-0');
-                        }, index * 100); // 100ms delay between each item
+                        }, index * 100);
                     });
                     listObserver.unobserve(servicesList);
                 }
             }, { threshold: 0.2 });
 
             if(servicesList) listObserver.observe(servicesList);
+
+            // 3. Ultra-Smooth Touch Slider Logic
+            const track = document.getElementById('testimonial-track');
+            const dots = document.querySelectorAll('#slider-dots button');
+            
+            let isDragging = false;
+            let startPos = 0;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+            let animationID;
+            let currentIndex = 0;
+
+            const updateDots = () => {
+                dots.forEach((dot, index) => {
+                    dot.classList.remove('bg-navy-900');
+                    dot.classList.add('bg-gray-200');
+                    if(index === currentIndex) {
+                        dot.classList.add('bg-navy-900');
+                        dot.classList.remove('bg-gray-200');
+                    }
+                });
+            }
+
+            const getPositionX = (event) => {
+                return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
+            }
+
+            const animation = () => {
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                if(isDragging) requestAnimationFrame(animation);
+            }
+
+            const setPositionByIndex = () => {
+                currentTranslate = currentIndex * -track.offsetWidth;
+                prevTranslate = currentTranslate;
+                track.style.transition = 'transform 0.3s cubic-bezier(0.25, 1, 0.5, 1)';
+                track.style.transform = `translateX(${currentTranslate}px)`;
+                updateDots();
+            }
+
+            const touchStart = (index) => {
+                return function(event) {
+                    isDragging = true;
+                    startPos = getPositionX(event);
+                    track.style.transition = 'none'; // Remove CSS transition while dragging for zero lag
+                    animationID = requestAnimationFrame(animation);
+                    track.classList.add('grabbing');
+                }
+            }
+
+            const touchMove = (event) => {
+                if (isDragging) {
+                    const currentPosition = getPositionX(event);
+                    // Add friction if dragging past edges
+                    let diff = currentPosition - startPos;
+                    if(currentIndex === 0 && diff > 0) diff *= 0.3;
+                    if(currentIndex === dots.length - 1 && diff < 0) diff *= 0.3;
+                    
+                    currentTranslate = prevTranslate + diff;
+                }
+            }
+
+            const touchEnd = () => {
+                isDragging = false;
+                cancelAnimationFrame(animationID);
+                track.classList.remove('grabbing');
+
+                // Determine if we dragged far enough to snap to next slide
+                const movedBy = currentTranslate - prevTranslate;
+
+                if (movedBy < -100 && currentIndex < dots.length - 1) currentIndex += 1;
+                if (movedBy > 100 && currentIndex > 0) currentIndex -= 1;
+
+                setPositionByIndex();
+            }
+
+            // Add Event Listeners
+            track.addEventListener('touchstart', touchStart(currentIndex), { passive: true });
+            track.addEventListener('touchend', touchEnd);
+            track.addEventListener('touchmove', touchMove, { passive: true });
+
+            track.addEventListener('mousedown', touchStart(currentIndex));
+            track.addEventListener('mouseup', touchEnd);
+            track.addEventListener('mouseleave', () => { if(isDragging) touchEnd() });
+            track.addEventListener('mousemove', touchMove);
+
+            // Handle Window Resize to fix layout shifts
+            window.addEventListener('resize', setPositionByIndex);
+
+            // Dot Click Navigation
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentIndex = index;
+                    setPositionByIndex();
+                });
+            });
         });
     </script>
 </body>
