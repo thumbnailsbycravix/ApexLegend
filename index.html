@@ -75,7 +75,7 @@
             will-change: transform;
             user-select: none; 
             -webkit-user-select: none;
-            touch-action: pan-y; /* Fixes shaking while scrolling */
+            touch-action: pan-y;
         }
         .slider-item {
             flex: 0 0 100%;
@@ -399,7 +399,7 @@
 
             if(servicesList) listObserver.observe(servicesList);
 
-            // 3. UNBREAKABLE SMOOTH SLIDER SCRIPT
+            // 3. THE BULLETPROOF SLIDER
             const track = document.getElementById('testimonial-track');
             const originalSlides = Array.from(document.querySelectorAll('.original-slide'));
             const dots = document.querySelectorAll('#slider-dots button');
@@ -426,7 +426,15 @@
             let animationID;
             let autoPlayInterval;
 
+            // Failsafe bounds
+            const getValidIndex = (index) => {
+                if (index < 0) return 0;
+                if (index > allSlides.length - 1) return allSlides.length - 1;
+                return index;
+            };
+
             const updatePosition = (animate = true) => {
+                currentIndex = getValidIndex(currentIndex);
                 track.style.transition = animate ? 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
                 currentTranslate = currentIndex * -track.offsetWidth;
                 track.style.transform = `translate3d(${currentTranslate}px, 0, 0)`; 
@@ -453,14 +461,24 @@
                 }
             });
 
-            // AutoPlay set to 2.5 seconds
+            // Visibility API: Prevents white space when switching tabs
             const startAutoPlay = () => {
                 clearInterval(autoPlayInterval);
                 autoPlayInterval = setInterval(() => {
-                    currentIndex++;
-                    updatePosition();
+                    if (!document.hidden) {
+                        currentIndex++;
+                        updatePosition(true);
+                    }
                 }, 2500); 
             };
+
+            document.addEventListener("visibilitychange", () => {
+                if (document.hidden) {
+                    clearInterval(autoPlayInterval);
+                } else {
+                    startAutoPlay();
+                }
+            });
 
             const touchStart = (event) => {
                 clearInterval(autoPlayInterval);
@@ -483,7 +501,7 @@
                 // Catch the slider mid-air using computed matrix
                 const style = window.getComputedStyle(track);
                 const matrix = new WebKitCSSMatrix(style.transform);
-                currentTranslate = matrix.m41; // Get exact X translation
+                currentTranslate = matrix.m41; 
                 prevTranslate = currentTranslate;
                 
                 track.style.transition = 'none'; 
@@ -551,8 +569,6 @@
                 startAutoPlay();
             });
 
-            window.addEventListener('resize', () => updatePosition(false));
-
             dots.forEach((dot, index) => {
                 dot.addEventListener('click', () => {
                     clearInterval(autoPlayInterval);
@@ -562,11 +578,14 @@
                 });
             });
 
-            // Init
-            setTimeout(() => {
+            // ResizeObserver fixes the start-up calculation bug
+            const resizeObserver = new ResizeObserver(() => {
                 updatePosition(false);
-                startAutoPlay();
-            }, 100);
+            });
+            resizeObserver.observe(track);
+
+            // Init Autoplay
+            startAutoPlay();
         });
     </script>
 </body>
