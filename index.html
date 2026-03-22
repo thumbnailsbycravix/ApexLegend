@@ -305,13 +305,13 @@
             <h2 class="text-2xl font-medium text-navy-900 leading-tight mb-8 relative z-10">Easy & quick appointment booking</h2>
             
             <form class="space-y-4 text-left relative z-10">
-                <input type="text" placeholder="Full name *" class="custom-input text-sm reveal" style="transition-delay: 100ms;">
-                <input type="email" placeholder="Email *" class="custom-input text-sm reveal" style="transition-delay: 200ms;">
-                <input type="tel" placeholder="Phone number *" class="custom-input text-sm reveal" style="transition-delay: 300ms;">
-                <input type="text" placeholder="Reason for visit (e.g., toothache, cleaning) *" class="custom-input text-sm mb-6 reveal" style="transition-delay: 400ms;">
+                <input type="text" placeholder="Full name *" class="custom-input text-sm">
+                <input type="email" placeholder="Email *" class="custom-input text-sm">
+                <input type="tel" placeholder="Phone number *" class="custom-input text-sm">
+                <input type="text" placeholder="Reason for visit (e.g., toothache, cleaning) *" class="custom-input text-sm mb-6">
                 
                 <div class="flex justify-start">
-                    <button type="button" id="booking-btn" class="relative bg-navy-900 text-white px-8 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:shadow-[0_8px_20px_rgba(17,24,54,0.3)] active:scale-95 w-max mt-4 shadow-lg reveal overflow-hidden flex items-center justify-center min-w-[180px] h-[52px]" style="transition-delay: 500ms;">
+                    <button type="button" id="booking-btn" class="relative bg-navy-900 text-white px-8 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:shadow-[0_8px_20px_rgba(17,24,54,0.3)] active:scale-95 w-max mt-4 shadow-lg overflow-hidden flex items-center justify-center min-w-[180px] h-[52px]">
                         <span id="btn-text" class="transition-opacity duration-300 absolute">Reserve Your Spot</span>
                         
                         <i id="btn-spinner" class="fa-solid fa-circle-notch fa-spin absolute opacity-0 transition-opacity duration-300 pointer-events-none text-lg"></i>
@@ -551,7 +551,7 @@
                 teamObserver.observe(teamGrid);
             }
 
-            // 4. Booking Button Animation Logic (UPDATED SPEED)
+            // 4. Booking Button Animation Logic
             const bookingBtn = document.getElementById('booking-btn');
             if (bookingBtn) {
                 const btnText = document.getElementById('btn-text');
@@ -586,11 +586,11 @@
                             btnSuccess.classList.add('opacity-0');
                             btnText.classList.remove('opacity-0');
                         }, 2000);
-                    }, 800); // Changed from 1500 to 800 for a snappy feel
+                    }, 800);
                 });
             }
 
-            // 5. Slider Logic (DEBOUNCED SAFE RESIZE)
+            // 5. Slider Logic
             const track = document.getElementById('testimonial-track');
             const originalSlides = Array.from(document.querySelectorAll('.original-slide'));
             const dots = document.querySelectorAll('#slider-dots button');
@@ -620,7 +620,7 @@
 
             const updatePosition = (animate = true) => {
                 currentIndex = getValidIndex(currentIndex);
-                const slideWidth = allSlides[0].offsetWidth; // Strictly bind math to individual slide
+                const slideWidth = allSlides[0].offsetWidth;
                 
                 track.style.transition = animate ? 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)' : 'none';
                 currentTranslate = currentIndex * -slideWidth;
@@ -636,7 +636,6 @@
                 });
             };
 
-            // Set Initial Layout Instantly
             updatePosition(false);
 
             track.addEventListener('transitionend', () => {
@@ -645,7 +644,7 @@
             });
 
             const startAutoPlay = () => {
-                clearInterval(autoPlayInterval); // Ensure strictly ONE timer runs
+                clearInterval(autoPlayInterval);
                 autoPlayInterval = setInterval(() => {
                     if(!document.hidden){
                         currentIndex++;
@@ -744,7 +743,6 @@
                 startAutoPlay();
             });
 
-            // Replaced buggy ResizeObserver with safe Debounced Window Resize
             let resizeTimer;
             window.addEventListener('resize', () => {
                 clearTimeout(resizeTimer);
@@ -762,7 +760,6 @@
                 });
             });
 
-            // Boot up auto scroll instantly
             startAutoPlay();
         });
     </script>
