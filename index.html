@@ -311,7 +311,7 @@
                 <input type="text" placeholder="Reason for visit (e.g., toothache, cleaning) *" class="custom-input text-sm mb-6 reveal" style="transition-delay: 400ms;">
                 
                 <div class="flex justify-start">
-                    <button type="button" id="booking-btn" class="relative bg-navy-900 text-white px-8 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(59,130,246,0.4)] w-max mt-4 shadow-lg reveal overflow-hidden flex items-center justify-center min-w-[180px] h-[52px]" style="transition-delay: 500ms;">
+                    <button type="button" id="booking-btn" class="relative bg-navy-900 text-white px-8 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:shadow-[0_8px_20px_rgba(17,24,54,0.3)] active:scale-95 w-max mt-4 shadow-lg reveal overflow-hidden flex items-center justify-center min-w-[180px] h-[52px]" style="transition-delay: 500ms;">
                         <span id="btn-text" class="transition-opacity duration-300 absolute">Reserve Your Spot</span>
                         
                         <i id="btn-spinner" class="fa-solid fa-circle-notch fa-spin absolute opacity-0 transition-opacity duration-300 pointer-events-none text-lg"></i>
@@ -575,16 +575,16 @@
                         btnSpinner.classList.remove('opacity-100');
                         btnSpinner.classList.add('opacity-0');
                         
-                        // Show success state (turns green)
+                        // Updated to Brand Blue instead of Emerald Green
                         this.classList.remove('bg-navy-900', 'hover:bg-navy-800');
-                        this.classList.add('bg-emerald-500', 'hover:bg-emerald-600', 'success');
+                        this.classList.add('bg-blue-600', 'hover:bg-blue-700', 'success');
                         
                         btnSuccess.classList.remove('opacity-0');
                         btnSuccess.classList.add('opacity-100');
                         
                         // Optional: Reset button after 3 seconds
                         setTimeout(() => {
-                            this.classList.remove('bg-emerald-500', 'hover:bg-emerald-600', 'success', 'processing');
+                            this.classList.remove('bg-blue-600', 'hover:bg-blue-700', 'success', 'processing');
                             this.classList.add('bg-navy-900', 'hover:bg-navy-800');
                             btnSuccess.classList.remove('opacity-100');
                             btnSuccess.classList.add('opacity-0');
