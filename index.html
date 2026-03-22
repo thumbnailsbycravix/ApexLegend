@@ -166,13 +166,15 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal">
-            <p class="text-xs text-gray-500 mb-1">Join 5,000+</p>
-            <p class="text-navy-900 font-medium text-sm mb-4">Trusted by 5,000+ teams</p>
-            <div class="flex -space-x-3">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100" class="w-10 h-10 rounded-full border-2 border-white object-cover" alt="User">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" class="w-10 h-10 rounded-full border-2 border-white object-cover" alt="User">
-                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&h=100" class="w-10 h-10 rounded-full border-2 border-white object-cover" alt="User">
+        <div class="bg-white rounded-3xl p-6 shadow-[0_8px_30px_rgb(0,0,0,0.04)] reveal flex items-center gap-5">
+            <div class="flex -space-x-4 shrink-0">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full border-2 border-white object-cover relative z-30" alt="User">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full border-2 border-white object-cover relative z-20" alt="User">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=100&h=100" class="w-12 h-12 rounded-full border-2 border-white object-cover relative z-10" alt="User">
+            </div>
+            <div>
+                <p class="text-xs text-gray-500 mb-0.5">Join 5,000+</p>
+                <p class="text-navy-900 font-medium text-sm leading-tight">Trusted by 5,000+ happy patients</p>
             </div>
         </div>
 
@@ -551,7 +553,7 @@
                 teamObserver.observe(teamGrid);
             }
 
-            // 4. Booking Button Animation Logic
+            // 4. Booking Button Animation Logic (UPDATED SPEED)
             const bookingBtn = document.getElementById('booking-btn');
             if (bookingBtn) {
                 const btnText = document.getElementById('btn-text');
