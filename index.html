@@ -551,7 +551,7 @@
                 teamObserver.observe(teamGrid);
             }
 
-            // 4. Booking Button Animation Logic
+            // 4. Booking Button Animation Logic (UPDATED SPEED)
             const bookingBtn = document.getElementById('booking-btn');
             if (bookingBtn) {
                 const btnText = document.getElementById('btn-text');
@@ -559,38 +559,34 @@
                 const btnSuccess = document.getElementById('btn-success');
 
                 bookingBtn.addEventListener('click', function() {
-                    // Prevent multiple clicks while processing
                     if (this.classList.contains('processing') || this.classList.contains('success')) return;
                     
                     this.classList.add('processing');
                     
-                    // Hide text, show spinner
                     btnText.classList.add('opacity-0');
                     btnSpinner.classList.remove('opacity-0');
                     btnSpinner.classList.add('opacity-100');
 
-                    // Simulate network request (1.5 seconds)
+                    // Fast 800ms spin animation
                     setTimeout(() => {
-                        // Hide spinner
                         btnSpinner.classList.remove('opacity-100');
                         btnSpinner.classList.add('opacity-0');
                         
-                        // Updated to Brand Blue instead of Emerald Green
                         this.classList.remove('bg-navy-900', 'hover:bg-navy-800');
                         this.classList.add('bg-blue-600', 'hover:bg-blue-700', 'success');
                         
                         btnSuccess.classList.remove('opacity-0');
                         btnSuccess.classList.add('opacity-100');
                         
-                        // Optional: Reset button after 3 seconds
+                        // Reset button after 2 seconds
                         setTimeout(() => {
                             this.classList.remove('bg-blue-600', 'hover:bg-blue-700', 'success', 'processing');
                             this.classList.add('bg-navy-900', 'hover:bg-navy-800');
                             btnSuccess.classList.remove('opacity-100');
                             btnSuccess.classList.add('opacity-0');
                             btnText.classList.remove('opacity-0');
-                        }, 3000);
-                    }, 1500);
+                        }, 2000);
+                    }, 800); // Changed from 1500 to 800 for a snappy feel
                 });
             }
 
