@@ -438,45 +438,56 @@
 
     <footer class="footer-bg rounded-t-[40px] px-6 pt-16 pb-10 text-white relative mt-20 max-w-md mx-auto md:max-w-4xl">
         <div class="reveal">
-            <div class="flex items-center gap-2 mb-6">
-                <i class="fa-solid fa-asterisk text-white text-2xl"></i>
-                <span class="text-2xl font-bold tracking-tight">ApexCare</span>
-            </div>
             
-            <p class="text-gray-400 text-sm mb-8">2066 Duncan Avenue,<br>Brooklyn, New York</p>
-            <p class="text-gray-500 text-xs mb-8">&copy; 2025. <span class="underline underline-offset-2">ApexCare.</span><br>All Rights Reserved.</p>
-            
-            <div class="bg-white text-navy-900 rounded-2xl p-6 mb-10 shadow-xl">
-                <p class="text-sm mb-4 text-gray-600">Expert medical care, easily scheduled at your convenience</p>
-                <p class="text-xl font-medium mb-1">+(1234)-123-56</p>
-                <a href="mailto:info@apexcare.com" class="text-sm border-b border-navy-900 pb-0.5">info@apexcare.com</a>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+                
+                <div>
+                    <div class="flex items-center gap-2 mb-6">
+                        <i class="fa-solid fa-asterisk text-blue-400 text-2xl"></i>
+                        <span class="text-2xl font-bold tracking-tight">ApexCare</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-6 leading-relaxed">2066 Duncan Avenue,<br>Brooklyn, New York</p>
+                    <a href="#" class="inline-flex items-center gap-2 text-sm text-white bg-[#313a60] px-5 py-2.5 rounded-full hover:bg-blue-500 transition-colors w-max shadow-md">
+                        <i class="fa-solid fa-location-dot"></i> Get Directions
+                    </a>
+                </div>
+
+                <div>
+                    <h4 class="font-medium text-gray-300 mb-6 text-sm uppercase tracking-wider">Clinic Hours</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li class="flex justify-between border-b border-[#313a60] pb-2"><span>Mon - Fri</span> <span class="text-white">8:00 AM - 8:00 PM</span></li>
+                        <li class="flex justify-between border-b border-[#313a60] pb-2"><span>Saturday</span> <span class="text-white">9:00 AM - 4:00 PM</span></li>
+                        <li class="flex justify-between pb-2"><span>Sunday</span> <span class="text-blue-400 font-medium">Emergency Only</span></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="bg-white text-navy-900 rounded-2xl p-6 shadow-xl relative overflow-hidden group">
+                        <div class="absolute -right-4 -top-4 text-blue-50 group-hover:scale-110 transition-transform duration-500 text-6xl">
+                            <i class="fa-solid fa-truck-medical"></i>
+                        </div>
+                        <p class="text-xs font-bold text-red-500 uppercase mb-2 tracking-wider relative z-10">Emergency 24/7</p>
+                        <p class="text-sm mb-4 text-gray-600 relative z-10">Need urgent dental care? Call us immediately.</p>
+                        <p class="text-2xl font-bold mb-1 relative z-10">+(1234)-123-56</p>
+                        <a href="mailto:info@apexcare.com" class="text-sm font-medium border-b-2 border-blue-200 hover:border-blue-600 transition-colors relative z-10">info@apexcare.com</a>
+                    </div>
+                </div>
+
             </div>
 
-            <h4 class="font-medium mb-4 text-sm">Quick Links</h4>
-            <div class="grid grid-cols-2 gap-y-3 gap-x-4 mb-10 text-sm text-gray-300">
-                <a href="#" class="hover:text-white transition-colors">About</a>
-                <a href="#" class="hover:text-white transition-colors">Services</a>
-                <a href="#" class="hover:text-white transition-colors">Pricing</a>
-                <a href="#" class="hover:text-white transition-colors">Contact</a>
-                <a href="#" class="hover:text-white transition-colors">Style guide</a>
-                <a href="#" class="hover:text-white transition-colors">Licenses</a>
-                <a href="#" class="hover:text-white transition-colors">Change Log</a>
+            <div class="pt-8 border-t border-[#313a60] flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-facebook-f text-sm"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-pinterest-p text-sm"></i></a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-gray-500 text-xs mb-1">&copy; 2026 ApexCare. All Rights Reserved.</p>
+                </div>
             </div>
 
-            <h4 class="font-medium mb-4 text-sm">Newsletter</h4>
-            <div class="relative mb-8">
-                <input type="email" placeholder="Email Address" class="w-full bg-[#1e2548] border border-transparent rounded-full py-3.5 pl-6 pr-14 text-sm text-white focus:outline-none focus:border-blue-400 transition-colors">
-                <button class="absolute right-2 top-2 bottom-2 w-10 bg-[#313a60] rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors">
-                    <i class="fa-regular fa-paper-plane text-xs"></i>
-                </button>
-            </div>
-
-            <div class="flex gap-4">
-                <a href="#" class="w-10 h-10 rounded-full border border-[#313a60] flex items-center justify-center hover:bg-[#313a60] transition-colors"><i class="fa-brands fa-facebook-f text-sm"></i></a>
-                <a href="#" class="w-10 h-10 rounded-full border border-[#313a60] flex items-center justify-center hover:bg-[#313a60] transition-colors"><i class="fa-brands fa-x-twitter text-sm"></i></a>
-                <a href="#" class="w-10 h-10 rounded-full border border-[#313a60] flex items-center justify-center hover:bg-[#313a60] transition-colors"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
-                <a href="#" class="w-10 h-10 rounded-full border border-[#313a60] flex items-center justify-center hover:bg-[#313a60] transition-colors"><i class="fa-brands fa-pinterest-p text-sm"></i></a>
-            </div>
         </div>
     </footer>
 
@@ -708,3 +719,4 @@
     </script>
 </body>
 </html>
+
