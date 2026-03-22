@@ -39,8 +39,16 @@
     </script>
 
     <style>
-        html { scroll-behavior: smooth; }
-        body { background-color: #f8fafc; color: #0f172a; overflow-x: hidden; }
+        /* ADDED background-color here to fix the mobile scroll bleed */
+        html { 
+            scroll-behavior: smooth; 
+            background-color: #f8fafc; 
+        }
+        body { 
+            background-color: #f8fafc; 
+            color: #0f172a; 
+            overflow-x: hidden; 
+        }
 
         .reveal {
             opacity: 0;
