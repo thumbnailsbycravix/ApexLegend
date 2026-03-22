@@ -39,7 +39,6 @@
     </script>
 
     <style>
-        /* ADDED background-color here to fix the mobile scroll bleed */
         html { 
             scroll-behavior: smooth; 
             background-color: #f8fafc; 
@@ -437,8 +436,8 @@
                 <p class="text-gray-500 text-sm mb-2">October 5, 2025</p>
                 <h3 class="text-xl font-medium text-navy-900 mb-2">5 Tips to Keep Your Teeth Healthy</h3>
                 <p class="text-gray-600 text-sm mb-4">Learn simple daily habits that keep your teeth clean and strong</p>
-                <button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 group-hover:bg-navy-900 group-hover:text-white transition-colors">
-                    <i class="fa-solid fa-arrow-right -rotate-45"></i>
+                <button aria-label="Learn more about Teeth Healthy Tips" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
+                    <i class="fa-solid fa-arrow-right -rotate-45 text-xs"></i>
                 </button>
             </article>
 
@@ -449,8 +448,20 @@
                 <p class="text-gray-500 text-sm mb-2">October 4, 2025</p>
                 <h3 class="text-xl font-medium text-navy-900 mb-2">How to Choose the Right Toothbrush</h3>
                 <p class="text-gray-600 text-sm mb-4">Find out what toothbrush suits your dental needs best</p>
-                <button class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 group-hover:bg-navy-900 group-hover:text-white transition-colors">
-                    <i class="fa-solid fa-arrow-right -rotate-45"></i>
+                <button aria-label="Learn more about Toothbrush Selection" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
+                    <i class="fa-solid fa-arrow-right -rotate-45 text-xs"></i>
+                </button>
+            </article>
+
+            <article class="reveal group cursor-pointer">
+                <div class="rounded-3xl overflow-hidden mb-4">
+                    <img src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=800" alt="Coffee cup" class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-700">
+                </div>
+                <p class="text-gray-500 text-sm mb-2">October 3, 2025</p>
+                <h3 class="text-xl font-medium text-navy-900 mb-2">Top 5 Foods That Secretly Stain Your Teeth</h3>
+                <p class="text-gray-600 text-sm mb-4">Coffee, tea, and berries can dull your smile over time. Learn how to enjoy your favorite foods while protecting your enamel.</p>
+                <button aria-label="Learn more about Staining Foods" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
+                    <i class="fa-solid fa-arrow-right -rotate-45 text-xs"></i>
                 </button>
             </article>
         </div>
@@ -498,7 +509,7 @@
             <div class="pt-8 border-t border-[#313a60] flex flex-col md:flex-row items-center justify-between gap-6">
                 <div class="flex gap-4">
                     <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-facebook-f text-sm"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-x-twitter text-sm"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-instagram text-sm"></i></a>
                     <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-linkedin-in text-sm"></i></a>
                     <a href="#" class="w-10 h-10 rounded-full bg-[#1e2548] flex items-center justify-center hover:bg-blue-500 transition-colors"><i class="fa-brands fa-pinterest-p text-sm"></i></a>
                 </div>
