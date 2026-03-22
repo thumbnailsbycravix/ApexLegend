@@ -63,7 +63,6 @@
             outline: none;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
-        /* Updated Focus Glow Effect */
         .custom-input:focus { 
             border-bottom-color: #3b82f6; 
             box-shadow: 0 1px 0 0 #3b82f6; 
@@ -311,9 +310,18 @@
                 <input type="tel" placeholder="Phone number *" class="custom-input text-sm reveal" style="transition-delay: 300ms;">
                 <input type="text" placeholder="Reason for visit (e.g., toothache, cleaning) *" class="custom-input text-sm mb-6 reveal" style="transition-delay: 400ms;">
                 
-                <button type="button" class="bg-navy-900 text-white px-8 py-3.5 rounded-full text-sm font-medium hover:bg-navy-800 transition-colors w-max mt-4 shadow-lg reveal" style="transition-delay: 500ms;">
-                    Reserve Your Spot
-                </button>
+                <div class="flex justify-start">
+                    <button type="button" id="booking-btn" class="relative bg-navy-900 text-white px-8 py-3.5 rounded-full text-sm font-medium transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(59,130,246,0.4)] w-max mt-4 shadow-lg reveal overflow-hidden flex items-center justify-center min-w-[180px] h-[52px]" style="transition-delay: 500ms;">
+                        <span id="btn-text" class="transition-opacity duration-300 absolute">Reserve Your Spot</span>
+                        
+                        <i id="btn-spinner" class="fa-solid fa-circle-notch fa-spin absolute opacity-0 transition-opacity duration-300 pointer-events-none text-lg"></i>
+                        
+                        <div id="btn-success" class="absolute flex items-center gap-2 opacity-0 transition-opacity duration-300 pointer-events-none">
+                            <i class="fa-solid fa-check text-lg"></i>
+                            <span class="font-bold tracking-wide">Reserved!</span>
+                        </div>
+                    </button>
+                </div>
             </form>
             <i class="fa-solid fa-quote-left absolute -bottom-4 -left-2 text-8xl text-blue-100 opacity-50 z-0"></i>
         </div>
@@ -543,7 +551,50 @@
                 teamObserver.observe(teamGrid);
             }
 
-            // 4. Slider Logic (DEBOUNCED SAFE RESIZE)
+            // 4. Booking Button Animation Logic
+            const bookingBtn = document.getElementById('booking-btn');
+            if (bookingBtn) {
+                const btnText = document.getElementById('btn-text');
+                const btnSpinner = document.getElementById('btn-spinner');
+                const btnSuccess = document.getElementById('btn-success');
+
+                bookingBtn.addEventListener('click', function() {
+                    // Prevent multiple clicks while processing
+                    if (this.classList.contains('processing') || this.classList.contains('success')) return;
+                    
+                    this.classList.add('processing');
+                    
+                    // Hide text, show spinner
+                    btnText.classList.add('opacity-0');
+                    btnSpinner.classList.remove('opacity-0');
+                    btnSpinner.classList.add('opacity-100');
+
+                    // Simulate network request (1.5 seconds)
+                    setTimeout(() => {
+                        // Hide spinner
+                        btnSpinner.classList.remove('opacity-100');
+                        btnSpinner.classList.add('opacity-0');
+                        
+                        // Show success state (turns green)
+                        this.classList.remove('bg-navy-900', 'hover:bg-navy-800');
+                        this.classList.add('bg-emerald-500', 'hover:bg-emerald-600', 'success');
+                        
+                        btnSuccess.classList.remove('opacity-0');
+                        btnSuccess.classList.add('opacity-100');
+                        
+                        // Optional: Reset button after 3 seconds
+                        setTimeout(() => {
+                            this.classList.remove('bg-emerald-500', 'hover:bg-emerald-600', 'success', 'processing');
+                            this.classList.add('bg-navy-900', 'hover:bg-navy-800');
+                            btnSuccess.classList.remove('opacity-100');
+                            btnSuccess.classList.add('opacity-0');
+                            btnText.classList.remove('opacity-0');
+                        }, 3000);
+                    }, 1500);
+                });
+            }
+
+            // 5. Slider Logic (DEBOUNCED SAFE RESIZE)
             const track = document.getElementById('testimonial-track');
             const originalSlides = Array.from(document.querySelectorAll('.original-slide'));
             const dots = document.querySelectorAll('#slider-dots button');
