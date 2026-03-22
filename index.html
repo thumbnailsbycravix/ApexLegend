@@ -122,7 +122,7 @@
 
     <header class="hero-gradient px-6 pt-12 pb-24 text-center rounded-b-[40px] relative">
         <div class="reveal">
-            <span class="inline-block bg-white px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 tracking-wider mb-6 shadow-sm">#1 DENTAL CENTRE</span>
+            <span class="inline-block bg-white px-4 py-1.5 rounded-full text-xs font-semibold text-navy-900 tracking-wider mb-6 shadow-sm">DENTAL CLINIC</span>
         </div>
         
         <h1 class="text-4xl md:text-6xl font-medium text-navy-900 leading-tight mb-8 reveal" style="transition-delay: 100ms;">
@@ -581,7 +581,7 @@
                 teamObserver.observe(teamGrid);
             }
 
-            // 4. Booking Button Animation Logic (UPDATED SPEED)
+            // 4. Booking Button Animation Logic
             const bookingBtn = document.getElementById('booking-btn');
             if (bookingBtn) {
                 const btnText = document.getElementById('btn-text');
@@ -597,7 +597,6 @@
                     btnSpinner.classList.remove('opacity-0');
                     btnSpinner.classList.add('opacity-100');
 
-                    // Fast 800ms spin animation
                     setTimeout(() => {
                         btnSpinner.classList.remove('opacity-100');
                         btnSpinner.classList.add('opacity-0');
@@ -608,7 +607,6 @@
                         btnSuccess.classList.remove('opacity-0');
                         btnSuccess.classList.add('opacity-100');
                         
-                        // Reset button after 2 seconds
                         setTimeout(() => {
                             this.classList.remove('bg-blue-600', 'hover:bg-blue-700', 'success', 'processing');
                             this.classList.add('bg-navy-900', 'hover:bg-navy-800');
@@ -620,7 +618,7 @@
                 });
             }
 
-            // 5. Slider Logic
+            // 5. Slider Logic - WITH SCROLL BUG FIXED
             const track = document.getElementById('testimonial-track');
             const originalSlides = Array.from(document.querySelectorAll('.original-slide'));
             const dots = document.querySelectorAll('#slider-dots button');
@@ -741,18 +739,24 @@
             };
 
             const touchEnd = () => {
-                if (!isDragging) return;
+                // FIXED: ALWAYS restart auto-play, even if it was just a vertical scroll
+                if (!isDragging && !isScrolling) {
+                    startAutoPlay();
+                    return;
+                }
                 
-                isDragging = false;
-                cancelAnimationFrame(animationID);
-                track.classList.remove('grabbing');
+                if (isDragging) {
+                    isDragging = false;
+                    cancelAnimationFrame(animationID);
+                    track.classList.remove('grabbing');
 
-                const movedBy = currentTranslate - prevTranslate;
+                    const movedBy = currentTranslate - prevTranslate;
 
-                if (movedBy < -30) currentIndex++;
-                else if (movedBy > 30) currentIndex--;
+                    if (movedBy < -30) currentIndex++;
+                    else if (movedBy > 30) currentIndex--;
 
-                updatePosition(true);
+                    updatePosition(true);
+                }
                 startAutoPlay();
             };
 
@@ -779,15 +783,6 @@
                 resizeTimer = setTimeout(() => {
                     updatePosition(false);
                 }, 100);
-            });
-
-            dots.forEach((dot, index) => {
-                dot.addEventListener('click', () => {
-                    clearInterval(autoPlayInterval);
-                    currentIndex = index + 1; 
-                    updatePosition(true);
-                    startAutoPlay();
-                });
             });
 
             startAutoPlay();
