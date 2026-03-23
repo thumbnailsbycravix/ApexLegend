@@ -249,7 +249,7 @@
             <ul class="space-y-4" id="services-list">
                 <li class="stagger-item opacity-0 transform translate-y-4 flex items-center justify-between border-b border-gray-100 pb-4 transition-all duration-500">
                     <div class="flex items-center gap-4">
-                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center">01</span>
+                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center relative -top-[2px]">01</span>
                         <span class="text-navy-900 font-medium">Teeth Cleaning</span>
                     </div>
                     <button aria-label="Learn more about Teeth Cleaning" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
@@ -259,7 +259,7 @@
                 
                 <li class="stagger-item opacity-0 transform translate-y-4 flex items-center justify-between border-b border-gray-100 pb-4 transition-all duration-500">
                     <div class="flex items-center gap-4">
-                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center">02</span>
+                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center relative -top-[2px]">02</span>
                         <span class="text-navy-900 font-medium">Teeth Whitening</span>
                     </div>
                     <button aria-label="Learn more about Teeth Whitening" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
@@ -269,7 +269,7 @@
                 
                 <li class="stagger-item opacity-0 transform translate-y-4 flex items-center justify-between border-b border-gray-100 pb-4 transition-all duration-500">
                     <div class="flex items-center gap-4">
-                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center">03</span>
+                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center relative -top-[2px]">03</span>
                         <span class="text-navy-900 font-medium">Orthodontics</span>
                     </div>
                     <button aria-label="Learn more about Orthodontics" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
@@ -279,7 +279,7 @@
                 
                 <li class="stagger-item opacity-0 transform translate-y-4 flex items-center justify-between border-b border-gray-100 pb-4 transition-all duration-500">
                     <div class="flex items-center gap-4">
-                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center">04</span>
+                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center relative -top-[2px]">04</span>
                         <span class="text-navy-900 font-medium">Dental Implants</span>
                     </div>
                     <button aria-label="Learn more about Dental Implants" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
@@ -289,7 +289,7 @@
                 
                 <li class="stagger-item opacity-0 transform translate-y-4 flex items-center justify-between border-b border-gray-100 pb-4 transition-all duration-500">
                     <div class="flex items-center gap-4">
-                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center">05</span>
+                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center relative -top-[2px]">05</span>
                         <span class="text-navy-900 font-medium">Emergency Care</span>
                     </div>
                     <button aria-label="Learn more about Emergency Care" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
@@ -299,7 +299,7 @@
                 
                 <li class="stagger-item opacity-0 transform translate-y-4 flex items-center justify-between pt-1 transition-all duration-500">
                     <div class="flex items-center gap-4">
-                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center">06</span>
+                        <span class="font-serif italic text-gray-400 text-lg w-8 shrink-0 text-center relative -top-[2px]">06</span>
                         <span class="text-navy-900 font-medium">Fillings & Restorations</span>
                     </div>
                     <button aria-label="Learn more about Fillings & Restorations" class="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-navy-900 hover:bg-blue-50 hover:text-blue-600 transition-colors duration-300">
@@ -581,7 +581,7 @@
                 teamObserver.observe(teamGrid);
             }
 
-            // 4. Booking Button Animation Logic
+            // 4. Booking Button Animation Logic 
             const bookingBtn = document.getElementById('booking-btn');
             if (bookingBtn) {
                 const btnText = document.getElementById('btn-text');
@@ -784,27 +784,29 @@
                 }, 100);
             });
 
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    clearInterval(autoPlayInterval);
+                    currentIndex = index + 1; 
+                    updatePosition(true);
+                    startAutoPlay();
+                });
+            });
+
             startAutoPlay();
 
             // 6. Insight Cards Two-Tap Logic
             const insightCards = document.querySelectorAll('.insight-card');
             insightCards.forEach(card => {
                 card.addEventListener('click', function(e) {
-                    // If the card doesn't have the active class yet
                     if (!this.classList.contains('hover-activated')) {
-                        e.preventDefault(); // Stop the redirect
-                        
-                        // Remove the class from all other cards first
+                        e.preventDefault(); 
                         insightCards.forEach(c => c.classList.remove('hover-activated'));
-                        
-                        // Add the class to this specific card
                         this.classList.add('hover-activated');
                     }
-                    // If it already has the class, we let the normal click/redirect happen
                 });
             });
 
-            // Remove the active effect if the user clicks anywhere else on the page
             document.addEventListener('click', function(e) {
                 if (!e.target.closest('.insight-card')) {
                     insightCards.forEach(c => c.classList.remove('hover-activated'));
